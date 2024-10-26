@@ -1,7 +1,12 @@
 package com.fil.TicketBooking.service;
+import com.fil.TicketBooking.model.QRCode;
 
-import com.fil.TicketBooking.model.QrCode;
+import java.util.List;
 
 public interface QRCodeService {
-    QrCode generateQRCode(QrCode qrCode);
+    QRCode createQRCode(QRCode qrCode);
+    QRCode updateQRCode(Long id, QRCode qrCode);
+    void deleteQRCode(Long id);
+    QRCode getQRCodeById(Long id);
+    List<QRCode> getAllQRCodes();
 }

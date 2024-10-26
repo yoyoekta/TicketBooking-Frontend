@@ -5,8 +5,9 @@ import com.fil.TicketBooking.model.TicketPricing;
 import java.util.List;
 
 public interface TicketPricingService {
-    TicketPricing createPricing(TicketPricing ticketPricing);
-    List<TicketPricing> getPricingByPlaceId(Long placeId);
-    TicketPricing updatePricing(Long pricingId, TicketPricing ticketPricing);
-    void deletePricing(Long pricingId);
+    TicketPricing createTicketPricing(TicketPricing ticketPricing);
+    TicketPricing updateTicketPricing(Long id, TicketPricing ticketPricing);
+    void deleteTicketPricing(Long id);
+    TicketPricing getTicketPricingById(Long id);
+    List<TicketPricing> getAllTicketPricing();
 }

@@ -6,12 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EventServiceImpl implements EventService {
 
+    private final EventRepository eventRepository;
+
     @Autowired
-    private EventRepository eventRepository;
+    public EventServiceImpl(EventRepository eventRepository) {
+        this.eventRepository = eventRepository;
+    }
 
     @Override
     public Event createEvent(Event event) {
@@ -19,23 +24,27 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public List<Event> getEventsByLocation(Long locationId) {
-        return eventRepository.findByLocationId(locationId);
+    public Event updateEvent(Long id, Event event) {
+        Optional<Event> existingEvent = eventRepository.findById(id);
+        if (existingEvent.isPresent()) {
+            event.setPlaceId(id);
+            return eventRepository.save(event);
+        }
+        return null; // or throw an exception
     }
 
     @Override
-    public Event updateEvent(Long eventId, Event event) {
-        Event existingEvent = eventRepository.findById(eventId)
-                .orElseThrow(() -> new RuntimeException("Event not found"));
-        // Update event properties
-        existingEvent.setDescription(event.getDescription());
-        existingEvent.setTicketPrice(event.getTicketPrice());
-        // Update other properties as necessary
-        return eventRepository.save(existingEvent);
+    public void deleteEvent(Long id) {
+        eventRepository.deleteById(id);
     }
 
     @Override
-    public void deleteEvent(Long eventId) {
-        eventRepository.deleteById(eventId);
+    public Event getEventById(Long id) {
+        return eventRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public List<Event> getAllEvents() {
+        return eventRepository.findAll();
     }
 }

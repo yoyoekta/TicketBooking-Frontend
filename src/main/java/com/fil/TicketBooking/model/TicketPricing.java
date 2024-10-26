@@ -1,9 +1,7 @@
 package com.fil.TicketBooking.model;
 import com.fil.TicketBooking.enums.CustomerType;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import java.sql.Timestamp;
 
 @Entity
@@ -11,6 +9,8 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Setter
+@Getter
 public class TicketPricing {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

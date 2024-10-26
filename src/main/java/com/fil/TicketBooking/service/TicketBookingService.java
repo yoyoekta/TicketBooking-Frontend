@@ -5,7 +5,9 @@ import com.fil.TicketBooking.model.TicketBooking;
 import java.util.List;
 
 public interface TicketBookingService {
-    TicketBooking bookTicket(TicketBooking ticketBooking);
-    TicketBooking cancelTicket(Long ticketId);
-    List<TicketBooking> getUserBookings(Long userId);
+    TicketBooking createTicketBooking(TicketBooking ticketBooking);
+    TicketBooking updateTicketBooking(Long id, TicketBooking ticketBooking);
+    void deleteTicketBooking(Long id);
+    TicketBooking getTicketBookingById(Long id);
+    List<TicketBooking> getAllTicketBookings();
 }
