@@ -4,6 +4,7 @@ import com.fil.TicketBooking.enums.UserStatus;
 import jakarta.persistence.*;
 import lombok.*;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 @Table(name = "user")
@@ -41,4 +42,13 @@ public class User {
     public void preUpdate(){
         updatedAt = new Timestamp(System.currentTimeMillis());
     }
+
+    @OneToMany(mappedBy = "user")
+    private List<TicketBooking> ticketBookings;
+
+    @OneToMany(mappedBy = "addedBy")
+    private List<Event> events;
+
+    @OneToMany(mappedBy = "addedBy")
+    private List<Location> locations;
 }

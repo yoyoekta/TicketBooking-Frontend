@@ -2,6 +2,7 @@ package com.fil.TicketBooking.model;
 import jakarta.persistence.*;
 import lombok.*;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 @Table(name = "location")
@@ -16,9 +17,14 @@ public class Location {
     private Long locationId;
     private String locationName;
     private String description;
-    private Long addedBy;
+    @ManyToOne
+    @JoinColumn(name = "added_by", nullable = false)
+    private User addedBy;
     private Timestamp createdAt;
     private Timestamp updatedAt;
+
+    @OneToMany(mappedBy = "location")
+    private List<Event> events;
 
     // Getters and Setters
 

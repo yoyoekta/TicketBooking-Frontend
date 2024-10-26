@@ -15,7 +15,9 @@ public class Refund {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long refundId;
-    private Long paymentId;
+    @ManyToOne
+    @JoinColumn(name = "payment_id", nullable = false)
+    private Payment payment;
     private double refundAmount;
     @Enumerated(EnumType.STRING)
     private RefundStatus refundStatus;

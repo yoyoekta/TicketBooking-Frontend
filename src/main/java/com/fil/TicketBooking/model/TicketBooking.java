@@ -15,9 +15,13 @@ public class TicketBooking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long ticketId;
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
-    private Long userId;
-    private Long placeId;
+    @ManyToOne
+    @JoinColumn(name = "place_id", nullable = false)
+    private Event place;
     private String bookingDate;
     private String ticketDetails;
     private double totalPrice;

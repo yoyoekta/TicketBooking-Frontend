@@ -15,7 +15,9 @@ public class TicketPricing {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long pricingId;
-    private Long placeId;
+    @ManyToOne
+    @JoinColumn(name = "place_id", nullable = false)
+    private Event place;
     @Enumerated(EnumType.STRING)
     private CustomerType customerType;
     private double price;

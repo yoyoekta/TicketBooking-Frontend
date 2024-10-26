@@ -18,7 +18,9 @@ public class Payment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long paymentId;
 
-    private Long ticketId;
+    @ManyToOne
+    @JoinColumn(name = "ticket_id", nullable = false)
+    private TicketBooking ticketBooking;
     private double amount;
     @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod;
