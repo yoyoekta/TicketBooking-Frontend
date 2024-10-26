@@ -1,35 +1,30 @@
 package com.fil.TicketBooking.model;
-import com.fil.TicketBooking.enums.BookingStatus;
+import com.fil.TicketBooking.enums.CustomerType;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "ticket_booking")
-@Setter
-@Getter
+@Table(name = "ticket_pricing")
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class TicketBooking {
+public class TicketPricing {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long ticketId;
-
-    private Long userId;
+    private Long pricingId;
     private Long placeId;
-    private String bookingDate;
-    private String ticketDetails;
-    private double totalPrice;
     @Enumerated(EnumType.STRING)
-    private BookingStatus status;
+    private CustomerType customerType;
+    private double price;
+    private String seasonalModifier;
     private Timestamp createdAt;
     private Timestamp updatedAt;
-    private Long totalMember;
 
     @PrePersist
     protected void onCreate() {
-        createdAt = new Timestamp(System.currentTimeMillis());
         createdAt = new Timestamp(System.currentTimeMillis());
         updatedAt = new Timestamp(System.currentTimeMillis());
     }
@@ -39,3 +34,4 @@ public class TicketBooking {
         updatedAt = new Timestamp(System.currentTimeMillis());
     }
 }
+
