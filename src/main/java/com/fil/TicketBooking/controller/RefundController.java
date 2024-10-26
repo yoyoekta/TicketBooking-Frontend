@@ -16,31 +16,31 @@ public class RefundController {
     @Autowired
     private RefundServiceImpl refundService;
 
-    @GetMapping
+    @GetMapping("/get-all-refunds")
     public ResponseEntity<List<Refund>> getAllRefunds() {
         List<Refund> refunds = refundService.getAllRefunds();
         return new ResponseEntity<>(refunds, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/get-refund-by-id/{id}")
     public ResponseEntity<Refund> getRefundById(@PathVariable Long id) {
         Refund refund = refundService.getRefundById(id);
         return new ResponseEntity<>(refund, HttpStatus.OK);
     }
 
-    @PostMapping
+    @PostMapping("/create-refund-by-id")
     public ResponseEntity<Refund> createRefund(@RequestBody Refund refund) {
         Refund createdRefund = refundService.createRefund(refund);
         return new ResponseEntity<>(createdRefund, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update-refund-by-id/{id}")
     public ResponseEntity<Refund> updateRefund(@PathVariable Long id, @RequestBody Refund refund) {
         Refund updatedRefund = refundService.updateRefund(id, refund);
         return new ResponseEntity<>(updatedRefund, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete-refund-by-id/{id}")
     public ResponseEntity<Void> deleteRefund(@PathVariable Long id) {
         refundService.deleteRefund(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

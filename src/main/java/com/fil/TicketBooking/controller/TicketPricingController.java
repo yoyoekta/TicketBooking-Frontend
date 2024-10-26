@@ -15,31 +15,31 @@ public class TicketPricingController {
     @Autowired
     private TicketPricingServiceImpl ticketPricingService;
 
-    @GetMapping
+    @GetMapping("/get-all-ticket-pricing")
     public ResponseEntity<List<TicketPricing>> getAllTicketPricing() {
         List<TicketPricing> ticketPricingList = ticketPricingService.getAllTicketPricing();
         return new ResponseEntity<>(ticketPricingList, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/get-ticket-by-id/{id}")
     public ResponseEntity<TicketPricing> getTicketPricingById(@PathVariable Long id) {
         TicketPricing ticketPricing = ticketPricingService.getTicketPricingById(id);
         return new ResponseEntity<>(ticketPricing, HttpStatus.OK);
     }
 
-    @PostMapping
+    @PostMapping("/create-ticket-pricing")
     public ResponseEntity<TicketPricing> createTicketPricing(@RequestBody TicketPricing ticketPricing) {
         TicketPricing createdTicketPricing = ticketPricingService.createTicketPricing(ticketPricing);
         return new ResponseEntity<>(createdTicketPricing, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update-ticket-pricing-by-id/{id}")
     public ResponseEntity<TicketPricing> updateTicketPricing(@PathVariable Long id, @RequestBody TicketPricing ticketPricing) {
         TicketPricing updatedTicketPricing = ticketPricingService.updateTicketPricing(id, ticketPricing);
         return new ResponseEntity<>(updatedTicketPricing, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete-ticket-pricing-by-id/{id}")
     public ResponseEntity<Void> deleteTicketPricing(@PathVariable Long id) {
         ticketPricingService.deleteTicketPricing(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

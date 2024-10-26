@@ -15,31 +15,31 @@ public class QRCodeController {
     @Autowired
     private QRCodeServiceImpl qrCodeService;
 
-    @GetMapping
+    @GetMapping("/get-all-qrcode")
     public ResponseEntity<List<QRCode>> getAllQRCodes() {
         List<QRCode> qrCodes = qrCodeService.getAllQRCodes();
         return new ResponseEntity<>(qrCodes, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/get-qrcode-by-id/{id}")
     public ResponseEntity<QRCode> getQRCodeById(@PathVariable Long id) {
         QRCode qrCode = qrCodeService.getQRCodeById(id);
         return new ResponseEntity<>(qrCode, HttpStatus.OK);
     }
 
-    @PostMapping
+    @PostMapping("/create-qr-code-by-id")
     public ResponseEntity<QRCode> createQRCode(@RequestBody QRCode qrCode) {
         QRCode createdQRCode = qrCodeService.createQRCode(qrCode);
         return new ResponseEntity<>(createdQRCode, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update-qr-code-by-id/{id}")
     public ResponseEntity<QRCode> updateQRCode(@PathVariable Long id, @RequestBody QRCode qrCode) {
         QRCode updatedQRCode = qrCodeService.updateQRCode(id, qrCode);
         return new ResponseEntity<>(updatedQRCode, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete-qr-code-by-id/{id}")
     public ResponseEntity<Void> deleteQRCode(@PathVariable Long id) {
         qrCodeService.deleteQRCode(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

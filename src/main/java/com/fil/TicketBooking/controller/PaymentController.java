@@ -15,31 +15,31 @@ public class PaymentController {
     @Autowired
     private PaymentServiceImpl paymentService;
 
-    @GetMapping
+    @GetMapping("/get-all-payment")
     public ResponseEntity<List<Payment>> getAllPayments() {
         List<Payment> payments = paymentService.getAllPayments();
         return new ResponseEntity<>(payments, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/get-payment-by-id/{id}")
     public ResponseEntity<Payment> getPaymentById(@PathVariable Long id) {
         Payment payment = paymentService.getPaymentById(id);
         return new ResponseEntity<>(payment, HttpStatus.OK);
     }
 
-    @PostMapping
+    @PostMapping("/create-payment")
     public ResponseEntity<Payment> createPayment(@RequestBody Payment payment) {
         Payment createdPayment = paymentService.createPayment(payment);
         return new ResponseEntity<>(createdPayment, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update-payment-by-id/{id}")
     public ResponseEntity<Payment> updatePayment(@PathVariable Long id, @RequestBody Payment payment) {
         Payment updatedPayment = paymentService.updatePayment(id, payment);
         return new ResponseEntity<>(updatedPayment, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete-payment-by-id/{id}")
     public ResponseEntity<Void> deletePayment(@PathVariable Long id) {
         paymentService.deletePayment(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
