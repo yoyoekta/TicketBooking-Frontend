@@ -29,7 +29,7 @@ public class TicketBooking {
     private BookingStatus status;
     private Timestamp createdAt;
     private Timestamp updatedAt;
-    private Long totalMember;
+    private int totalMember;
 
     @PrePersist
     protected void onCreate() {

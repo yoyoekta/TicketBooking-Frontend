@@ -1,5 +1,6 @@
 package com.fil.TicketBooking.model;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 import java.sql.Timestamp;
 import java.util.List;
@@ -15,7 +16,9 @@ public class Location {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long locationId;
+    @NotEmpty(message = "location name cannot be empty")
     private String locationName;
+    @NotEmpty(message = "description cannot be empty")
     private String description;
     @ManyToOne
     @JoinColumn(name = "added_by", nullable = false)

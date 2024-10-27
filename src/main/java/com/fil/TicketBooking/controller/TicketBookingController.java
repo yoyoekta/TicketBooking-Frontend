@@ -30,7 +30,7 @@ public class TicketBookingController {
 
     @PostMapping("/create-ticket-booking")
     public ResponseEntity<TicketBooking> createTicketBooking(@RequestBody TicketBooking ticketBooking) {
-        TicketBooking createdTicketBooking = ticketBookingService.createTicketBooking(ticketBooking);
+        TicketBooking createdTicketBooking = ticketBookingService.bookEvent(ticketBooking);
         return new ResponseEntity<>(createdTicketBooking, HttpStatus.CREATED);
     }
 

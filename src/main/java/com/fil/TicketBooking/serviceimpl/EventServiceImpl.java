@@ -1,7 +1,9 @@
 package com.fil.TicketBooking.serviceimpl;
 import com.fil.TicketBooking.model.Event;
+import com.fil.TicketBooking.model.TicketPricing;
 import com.fil.TicketBooking.repository.EventRepository;
 import com.fil.TicketBooking.service.EventService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,8 +20,12 @@ public class EventServiceImpl implements EventService {
         this.eventRepository = eventRepository;
     }
 
+    @Transactional
     @Override
     public Event createEvent(Event event) {
+        for (TicketPricing ticketPricing : event.getTicketPricings()) {
+            ticketPricing.setPlace(event);
+        }
         return eventRepository.save(event);
     }
 

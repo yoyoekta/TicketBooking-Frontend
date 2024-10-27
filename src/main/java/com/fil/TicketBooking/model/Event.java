@@ -1,5 +1,7 @@
 package com.fil.TicketBooking.model;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 import java.sql.Timestamp;
 import java.util.List;
@@ -23,15 +25,33 @@ public class Event {
     @ManyToOne
     @JoinColumn(name = "added_by", nullable = false)
     private User addedBy;
-    @OneToMany(mappedBy = "place")
+    @OneToMany(mappedBy = "place", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<TicketPricing> ticketPricings;
-
-    @OneToMany(mappedBy = "place")
+    @OneToMany(mappedBy = "place",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TicketBooking> ticketBookings;
+    @NotEmpty(message = "open timings cannot be null")
     private String openTiming;
+    @NotEmpty(message = "open days cannot be null")
     private String openDays;
     private Timestamp createdAt;
     private Timestamp updatedAt;
+    @NonNull
     private Long maxTicket;
+    @NonNull
     private Long soldTicket;
+    @NonNull
+    @JoinColumn(name = "ticket_price")
+    private Long ticketPrice;
+
+    @PrePersist
+    protected void onCreate() {
+        createdAt = new Timestamp(System.currentTimeMillis());
+        updatedAt = new Timestamp(System.currentTimeMillis());
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = new Timestamp(System.currentTimeMillis());
+    }
 }

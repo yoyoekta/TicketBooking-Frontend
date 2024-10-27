@@ -1,4 +1,5 @@
 package com.fil.TicketBooking.serviceimpl;
+import com.fil.TicketBooking.errors.ResourceAlreadyExistsException;
 import com.fil.TicketBooking.model.User;
 import com.fil.TicketBooking.repository.UserRepository;
 import com.fil.TicketBooking.service.UserService;
@@ -19,6 +20,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User createUser(User user) {
+        User byEmail = userRepository.findByEmail(user.getEmail());
+        if(byEmail != null){
+            throw new ResourceAlreadyExistsException("User with this email already exists");
+        }
         return userRepository.save(user);
     }
 
@@ -29,7 +34,7 @@ public class UserServiceImpl implements UserService {
             user.setUserId(id);
             return userRepository.save(user);
         }
-        return null; // or throw an exception
+        return null;
     }
 
     @Override
@@ -45,5 +50,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getAllUsers() {
         return userRepository.findAll();
+    }
+
+    @Override
+    public User getUserByEmailAndPassword(String email, String password) {
+        return userRepository.findByEmailAndPassword(email, password);
     }
 }

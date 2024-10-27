@@ -1,4 +1,5 @@
 package com.fil.TicketBooking.model;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fil.TicketBooking.enums.CustomerType;
 import jakarta.persistence.*;
 import lombok.*;
@@ -16,6 +17,7 @@ public class TicketPricing {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long pricingId;
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "place_id", nullable = false)
     private Event place;
     @Enumerated(EnumType.STRING)

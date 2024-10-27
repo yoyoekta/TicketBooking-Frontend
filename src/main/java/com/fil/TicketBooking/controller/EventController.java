@@ -1,5 +1,6 @@
 package com.fil.TicketBooking.controller;
 import com.fil.TicketBooking.model.Event;
+import com.fil.TicketBooking.model.TicketPricing;
 import com.fil.TicketBooking.service.EventService;
 import com.fil.TicketBooking.serviceimpl.EventServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class EventController {
         return new ResponseEntity<>(event, HttpStatus.OK);
     }
 
-    @PostMapping("/create-event-by-id")
+    @PostMapping("/create-event")
     public ResponseEntity<Event> createEvent(@RequestBody Event event) {
         Event createdEvent = eventService.createEvent(event);
         return new ResponseEntity<>(createdEvent, HttpStatus.CREATED);
