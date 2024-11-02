@@ -4,6 +4,7 @@ import './index.css'
 import App from './App.jsx'
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
 import HomeScreen from './Screens/HomeScreen';
+import NotFoundScreen from './Screens/NotFoundScreen';
 
 
 const router = createBrowserRouter(
@@ -11,6 +12,7 @@ const router = createBrowserRouter(
     
     <Route path="" element={<App />}>
       <Route path="/" element={<HomeScreen />} />
+      <Route path="*" element={<NotFoundScreen />} />
     </Route> 
   )
 );
