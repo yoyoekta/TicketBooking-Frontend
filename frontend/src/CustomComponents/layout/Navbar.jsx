@@ -8,7 +8,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import LoginDialog from "./LoginDialog";
+import LoginDialog from "../auth/LoginDialog";
 
 export default function Navbar() {
   const [isLoginDialogOpen, setLoginDialogOpen] = useState(false);

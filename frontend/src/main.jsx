@@ -5,6 +5,7 @@ import App from './App.jsx'
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom';
 import HomeScreen from './Screens/HomeScreen';
 import NotFoundScreen from './Screens/NotFoundScreen';
+import SinglePlaceScreen from './Screens/SinglePlaceScreen';
 
 
 const router = createBrowserRouter(
@@ -12,6 +13,7 @@ const router = createBrowserRouter(
     
     <Route path="" element={<App />}>
       <Route path="/" element={<HomeScreen />} />
+      <Route path="/place" element={<SinglePlaceScreen />} />
       <Route path="*" element={<NotFoundScreen />} />
     </Route> 
   )

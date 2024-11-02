@@ -1,6 +1,6 @@
-import EventCategories from "@/CustomComponents/EventCategories";
-import HomepageBanner from "@/CustomComponents/HomepageBanner";
-import Listing from "@/CustomComponents/Listing";
+import EventCategories from "@/CustomComponents/home/EventCategories";
+import HomepageBanner from "@/CustomComponents/home/HomepageBanner";
+import Listing from "@/CustomComponents/home/Listing";
 import React from "react";
 
 const HomeScreen = () => {
