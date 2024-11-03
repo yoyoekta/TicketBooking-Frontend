@@ -9,6 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import LoginDialog from "../auth/LoginDialog";
+import { Link } from "react-router-dom";
 
 export default function Navbar() {
   const [isLoginDialogOpen, setLoginDialogOpen] = useState(false);
@@ -57,7 +58,7 @@ export default function Navbar() {
           <DropdownMenuContent className="m-2">
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>Become Place Owner</DropdownMenuItem>
+            <DropdownMenuItem><Link to="/register-as-owner">Become Place Owner</Link></DropdownMenuItem>
             <DropdownMenuItem>Your Bookings</DropdownMenuItem>
             <DropdownMenuItem>Account & Settings</DropdownMenuItem>
             <DropdownMenuItem>Sign Out</DropdownMenuItem>
