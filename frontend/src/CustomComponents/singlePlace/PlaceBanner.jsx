@@ -26,7 +26,7 @@ const PlaceBanner = () => {
         <div className="flex justify-between items-center">
           <div className="flex flex-col gap-2">
             <h1 className="text-lg md:text-xl font-bold">
-              CHAMAN CHATORA - Gaurav Kapoor's Comedy Special
+              CHAMAN CHATORA - Gaurav Kapoor&apos;s Comedy Special
             </h1>
             <p className="text-gray-600 text-sm">
               Comedy | Hindi, English | 18yrs + | 1hr

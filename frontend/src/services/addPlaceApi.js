@@ -23,6 +23,7 @@ export const addPlace = async ({
   openDays,
   eventFromDate,
 }) => {
+  // eslint-disable-next-line no-useless-catch
   try {
     const response = await api.post("/api/events/create-event", {
       location,

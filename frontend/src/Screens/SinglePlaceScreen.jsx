@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import React from "react";
 import PlaceBanner from "@/CustomComponents/singlePlace/PlaceBanner";
 import ShareComponent from "@/CustomComponents/singlePlace/ShareComponent";
