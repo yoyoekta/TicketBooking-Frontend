@@ -91,9 +91,11 @@ const LoginDialog = ({ open, onClose, onLoginSuccess }) => {
         {/* Link to Signup page */}
         <p className="text-center mt-4">
           Not have an account?{" "}
+          <button onClick={onClose}>
           <Link to="/signup" className="text-blue-500 hover:underline">
             Signup
           </Link>
+          </button>
         </p>
       </DialogContent>
     </Dialog>

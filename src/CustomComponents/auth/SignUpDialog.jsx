@@ -1,4 +1,5 @@
 import { Button } from "@/Components/ui/button";
+import CircularProgress from '@mui/material/CircularProgress';
 import { useState } from "react";
 import { signup } from "../../../services/authApi";
 // import React from "react";
@@ -95,7 +96,6 @@ const Signup = () => {
           disabled={loading}
         >
           {loading ? (
-            // eslint-disable-next-line react/jsx-no-undef
             <CircularProgress size={24} color="inherit" /> // Show CircularProgressIndicator
           ) : (
             "Login"
