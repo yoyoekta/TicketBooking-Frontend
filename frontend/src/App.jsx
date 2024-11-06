@@ -1,6 +1,6 @@
-import { Outlet } from "react-router-dom";
-import Navbar from "./CustomComponents/layout/Navbar";
-import Footer from "./CustomComponents/layout/Footer";
+import Navbar from './CustomComponents/layout/Navbar';
+import Footer from './CustomComponents/layout/Footer';
+import { Outlet } from 'react-router-dom';
 
 function App() {
   return (
@@ -8,7 +8,7 @@ function App() {
       <div className="max-w-7xl mx-auto">
         <Navbar />
         <div className="main">
-          <Outlet />
+          <Outlet /> 
         </div>
       </div>
       <Footer />

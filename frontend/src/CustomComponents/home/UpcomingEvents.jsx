@@ -8,7 +8,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
-const Listing = () => {
+const OngoingEvent = () => {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -22,7 +22,7 @@ const Listing = () => {
       try {
         const token = localStorage.getItem("jwtToken");
         const response = await fetch(
-          `http://localhost:8080/api/events/top-sold?page=${page}&size=5`,
+          `http://localhost:8080/api/events/upcoming?page=${page}&size=5`,
           {
             method: "GET",
             headers: {
@@ -66,7 +66,7 @@ const Listing = () => {
   return (
     <div className="mt-8 p-4">
       <div className="flex flex-col gap-2">
-        <h3 className="font-bold text-xl">Popular Events in Delhi</h3>
+        <h3 className="font-bold text-xl">Ongoing Events</h3>
         <Carousel opts={{ align: "start" }} className="w-full max-w-7xl">
           <CarouselPrevious onClick={handlePreviousPage} disabled={page === 0}>
             <span className="text-white">{"<"}</span>
@@ -106,4 +106,4 @@ const Listing = () => {
   );
 };
 
-export default Listing;
+export default OngoingEvent;
