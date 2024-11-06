@@ -13,6 +13,7 @@ const api = axios.create({
 
 const apiEndpoints = {
     createEvent: async ({ data }) => {
+        // eslint-disable-next-line no-useless-catch
         try {
             const response = await api.post('/events/create-event', {
                 placeName: data.placeName,

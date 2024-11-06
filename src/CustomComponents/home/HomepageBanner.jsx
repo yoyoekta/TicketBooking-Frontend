@@ -1,5 +1,3 @@
-import React from "react";
-
 const HomepageBanner = () => {
   return (
     <div className="mt-2 flex flex-col md:flex-row justify-center items-center p-6 md:p-12 bg-gradient-to-r from-indigo-200 to-indigo-300 border-b border-indigo-200">
@@ -32,7 +30,7 @@ const HomepageBanner = () => {
 
       <div className="flex-1 flex justify-center items-center mt-8 md:mt-0">
         <img
-          src="https://img.freepik.com/premium-vector/cinema-theater-retro-sign-curtain-with-spotlight_7233-451.jpg?w=826" // Replace with your caricature image path
+          src="https://img.freepik.com/premium-vector/cinema-theater-retro-sign-curtain-with-spotlight_7233-451.jpg?w=826" 
           alt="Event Booking Illustration"
           className="w-72 h-72 md:w-96 md:h-96 object-cover rounded-xl shadow-xl border border-indigo-200"
         />

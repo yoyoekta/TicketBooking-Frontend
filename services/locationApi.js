@@ -14,6 +14,7 @@ const api = axios.create({
 
 const apiEndpoints = {
     createLocation: async ({ locationName, address, description, addedBy }) => {
+        // eslint-disable-next-line no-useless-catch
         try {
             const response = await api.post('/locations/create-location', { locationName, address, description, addedBy });
             return response;

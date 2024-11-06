@@ -1,7 +1,7 @@
 import { Button } from "@/Components/ui/button";
-import { signin } from '../auth/services/authApi';
+import { signin } from "../../../services/authApi";
 import { useState } from "react";
-import { Link } from "react-router-dom"; 
+import { Link } from "react-router-dom";
 import {
   Dialog,
   DialogContent,
@@ -11,17 +11,18 @@ import {
   DialogTitle,
 } from "@/Components/ui/dialog";
 import CircularProgress from "@mui/material/CircularProgress"; // Adjust the import based on your CircularProgressIndicator location
-import React from "react";
+// import React from "react";
 
+// eslint-disable-next-line react/prop-types
 const LoginDialog = ({ open, onClose, onLoginSuccess }) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false); // Loading state
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true); // Set loading to true
+    setLoading(true);
     try {
       const response = await signin({ email, password });
       const { jwt, status, user } = response.data;
@@ -32,14 +33,14 @@ const LoginDialog = ({ open, onClose, onLoginSuccess }) => {
         onLoginSuccess(user);
       }
     } catch (err) {
-      console.error('Login failed:', err);
+      console.error("Login failed:", err);
       if (err.response && err.response.data && err.response.data.message) {
         setError(err.response.data.message);
       } else {
-        setError('Login failed. Please check your credentials.');
+        setError("Login failed. Please check your credentials.");
       }
     } finally {
-      setLoading(false); // Reset loading state
+      setLoading(false);
     }
   };
 
@@ -71,15 +72,13 @@ const LoginDialog = ({ open, onClose, onLoginSuccess }) => {
               required
             />
           </div>
-
-          {/* Error message display */}
           {error && <p className="text-red-500 text-sm mt-3">{error}</p>}
 
           <DialogFooter className="mt-6">
             <Button
               type="submit"
               className="w-full bg-indigo-600 text-white hover:bg-indigo-500 p-3 rounded-lg font-semibold"
-              disabled={loading} 
+              disabled={loading}
             >
               {loading ? (
                 <CircularProgress size={24} color="inherit" /> // Show CircularProgressIndicator
@@ -91,7 +90,7 @@ const LoginDialog = ({ open, onClose, onLoginSuccess }) => {
         </form>
         {/* Link to Signup page */}
         <p className="text-center mt-4">
-          Not have an account?{' '}
+          Not have an account?{" "}
           <Link to="/signup" className="text-blue-500 hover:underline">
             Signup
           </Link>
