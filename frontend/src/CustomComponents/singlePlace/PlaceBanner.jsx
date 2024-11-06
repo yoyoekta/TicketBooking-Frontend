@@ -1,4 +1,5 @@
 import { FaLocationDot } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 
 const PlaceBanner = () => {
   const bannerImageUrl =
@@ -39,9 +40,11 @@ const PlaceBanner = () => {
             </div>
           </div>
 
-          <button className="font-medium bg-red-600 hover:bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg">
-            Book
-          </button>
+          <Link to="/book">
+            <button className="font-medium bg-red-600 hover:bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg">
+              Book
+            </button>
+          </Link>
         </div>
       </div>
     </div>

@@ -100,7 +100,7 @@ const Footer = () => {
 
       {/* Footer Bottom */}
       <div className="border-t border-blue-700 mt-10 pt-5 text-center text-sm text-blue-200">
-        © 2023 bookMyTicket multi-events. All rights reserved.
+        ©2024 bookMyTicket multi-events. All rights reserved.
       </div>
     </footer>
   );

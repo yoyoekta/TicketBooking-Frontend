@@ -10,12 +10,18 @@ import {
 } from "@/components/ui/dropdown-menu";
 import LoginDialog from "../auth/LoginDialog";
 import { Link } from "react-router-dom";
+import LocationSelector from "./LocationSelector";
 
 export default function Navbar() {
   const [isLoginDialogOpen, setLoginDialogOpen] = useState(false);
 
   const handleLoginOpen = () => setLoginDialogOpen(true);
   const handleLoginClose = () => setLoginDialogOpen(false);
+
+  const [isLocationSelectorOpen, setLocationSelectorOpen] = useState(false);
+
+  const handleLocationSelectorOpen = () => setLocationSelectorOpen(true);
+  const handleLocationSelectorClose = () => setLocationSelectorOpen(false);
   return (
     <div className="flex items-center justify-between px-4 py-2 bg-neutral-50 shadow-sm">
       {/* Logo */}
@@ -34,12 +40,18 @@ export default function Navbar() {
       {/* Location Selector and Avatar */}
       <div className="flex items-center space-x-4">
         {/* Location Selector */}
-        <select className="p-2 bg-neutral-100 rounded-md border border-neutral-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
-          <option value="NYC">New York City</option>
+        {/* <button className="p-2 bg-neutral-100 rounded-md border border-neutral-300"
+          onClick={handleLocationSelectorOpen}> */}
+          {/* <option value="NYC">New York City</option>
           <option value="LA">Los Angeles</option>
-          <option value="SF">San Francisco</option>
+          <option value="SF">San Francisco</option> */}
           {/* Add more locations as needed */}
-        </select>
+          {/* Select Location
+        </button> */}
+        <button className="font-medium bg-indigo-700 hover:bg-indigo-600 text-white px-4 py-2 rounded-lg shadow-lg"
+          onClick={handleLocationSelectorOpen}>
+          Select Location
+        </button>
 
         {/* Avatar */}
 
@@ -59,13 +71,14 @@ export default function Navbar() {
             <DropdownMenuLabel>My Account</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem><Link to="/register-as-owner">Become Place Owner</Link></DropdownMenuItem>
-            <DropdownMenuItem>Your Bookings</DropdownMenuItem>
+            <DropdownMenuItem><Link to="/bookings">Your Bookings</Link></DropdownMenuItem>
             <DropdownMenuItem>Account & Settings</DropdownMenuItem>
             <DropdownMenuItem>Sign Out</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
       <LoginDialog open={isLoginDialogOpen} onClose={handleLoginClose} />
+      <LocationSelector open={isLocationSelectorOpen} onClose={handleLocationSelectorClose} />
     </div>
   );
 }
