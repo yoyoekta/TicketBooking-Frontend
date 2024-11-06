@@ -1,7 +1,5 @@
-import { useRegisterMutation } from "@/app/api/authApi";
 import { Button } from "@/Components/ui/button";
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const Register = () => {
@@ -11,9 +9,7 @@ const Register = () => {
   const [password, setPassword] = useState();
   const [comfirmPassword, setConfirmPassword] = useState();
   const [address, setAddress] = useState();
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [register, { isLoading }] = useRegisterMutation();
   return (
     <div className="m-6 max-w-3xl mx-auto flex justify-center items-center min-h-screen bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full border border-gray-300">

@@ -12,8 +12,6 @@ import PendingApprovalScreen from './Screens/PendingApprovalScreen';
 import RequestRejectedScreen from './Screens/RequestRejectedScreen';
 import Signup from './CustomComponents/auth/SignUpDialog';
 import "./index.css";
-import { store } from "./app/store";
-import { Provider } from "react-redux";
 import Register from "./CustomComponents/auth/Register";
 import UserBookingScreen from "./Screens/UserBookingScreen";
 import BookScreen from "./Screens/BookScreen";
@@ -46,10 +44,3 @@ createRoot(document.getElementById('root')).render(
   </StrictMode>,
 )
 
-createRoot(document.getElementById("root")).render(
-  <StrictMode>
-    <Provider store={store}>
-      <RouterProvider router={router} />
-    </Provider>
-  </StrictMode>
-);
