@@ -9,11 +9,38 @@ import {
 } from "@/components/ui/dialog";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { addPlace } from "@/services/addPlaceApi";
 
 const AddPlaceDialog = ({ open, onClose }) => {
+  const [placeName, setPlaceName] = useState();
+  const [location, setLocation] = useState();
+  const [city, setCity] = useState();
+  const [state, setState] = useState();
+  const [description, setDescription] = useState();
+  const [ticketPrice, setTicketPrice] = useState();
   const [openDate, setOpenDate] = useState(new Date());
   const [openTimeFrom, setOpenTimeFrom] = useState("09:00");
   const [openTimeTo, setOpenTimeTo] = useState("18:00");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const placeData = {
+        location: location + ',' + city + ',' + state,
+        placeName: placeName,
+        description: description,
+        ticketPrice: ticketPrice,
+        openTiming: openTimeFrom + ' - ' + openTimeTo,
+        eventFromDate: openDate,
+    };
+
+    try {
+        const response = await addPlace(placeData);
+        console.log("Event created successfully:", response.data);
+    } catch (error) {
+        console.error("Error creating event:", error);
+    }
+  }
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
@@ -26,7 +53,7 @@ const AddPlaceDialog = ({ open, onClose }) => {
             Enter place details below.
           </DialogDescription> */}
         </DialogHeader>
-        <form className="space-y-4">
+        <form className="space-y-4" onSubmit={handleSubmit}>
           {/* Name Field */}
           <div>
             <label
@@ -41,6 +68,7 @@ const AddPlaceDialog = ({ open, onClose }) => {
               placeholder="Enter place name"
               required
               className="mt-1 block w-full border border-gray-300 p-2 placeholder-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              onChange={(e) => setPlaceName(e.target.value)}
             />
           </div>
 
@@ -58,6 +86,7 @@ const AddPlaceDialog = ({ open, onClose }) => {
               placeholder="Enter location"
               required
               className="mt-1 block w-full border border-gray-300 p-2 placeholder-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              onChange={(e) => setLocation(e.target.value)}
             />
           </div>
 
@@ -73,7 +102,9 @@ const AddPlaceDialog = ({ open, onClose }) => {
               id="city"
               type="text"
               placeholder="Enter city"
+              required
               className="mt-1 block w-full border border-gray-300 p-2 placeholder-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              onChange={(e) => setCity(e.target.value)}
             />
             </div>
             <div className="flex-1">
@@ -87,7 +118,9 @@ const AddPlaceDialog = ({ open, onClose }) => {
               id="state"
               type="text"
               placeholder="Enter State"
+              required
               className="mt-1 block w-full border border-gray-300 p-2 placeholder-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              onChange={(e) => setState(e.target.value)}
             />
             </div>
           </div>
@@ -105,6 +138,7 @@ const AddPlaceDialog = ({ open, onClose }) => {
               placeholder="Describe the place"
               required
               className="mt-1 block w-full border border-gray-300 p-2 placeholder-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              onChange={(e) => setDescription(e.target.value)}
             />
           </div>
 
@@ -120,7 +154,9 @@ const AddPlaceDialog = ({ open, onClose }) => {
               id="ticketPrice"
               type="text"
               placeholder="Enter ticket price"
+              required
               className="mt-1 block w-full border border-gray-300 p-2 placeholder-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              onChange={(e) => setTicketPrice(e.target.value)}
             />
           </div>
 
@@ -155,6 +191,7 @@ const AddPlaceDialog = ({ open, onClose }) => {
                 type="time"
                 className="mt-1 block w-full border border-gray-300 p-2 placeholder-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 id="openTimeFrom"
+                onChange={(e) => setOpenTimeFrom(e.target.value)}
               />
             </div>
             <div className="flex-1">
@@ -169,6 +206,7 @@ const AddPlaceDialog = ({ open, onClose }) => {
                 type="time"
                 className="mt-1 block w-full border border-gray-300 p-2 placeholder-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 id="openTimeTo"
+                onChange={(e) => setOpenTimeTo(e.target.value)}
               />
             </div>
           </div>
