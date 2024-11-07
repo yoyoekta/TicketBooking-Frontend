@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import LoginDialog from "../auth/LoginDialog";
 import { Link } from "react-router-dom";
+import LocationSelector from "./LocationSelector";
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -52,6 +53,10 @@ export default function Navbar() {
     }
   };
 
+  const [isLocationSelectorOpen, setLocationSelectorOpen] = useState(false);
+  const handleLocationSelectorOpen = () => setLocationSelectorOpen(true);
+  const handleLocationSelectorClose = () => setLocationSelectorOpen(false);
+
   return (
     <div className="flex flex-col items-center px-4 py-2 bg-neutral-50 shadow-sm">
       <div className="w-full flex justify-between items-center">
@@ -67,71 +72,50 @@ export default function Navbar() {
               onKeyDown={handleSearchKeyDown}
             />
           </div>
-        </div>
-        <div className="flex items-center space-x-4">
-          <select className="p-2 bg-neutral-100 rounded-md border border-neutral-300 focus:outline-none focus:ring-2 focus:ring-blue-500">
-            <option value="NYC">New York City</option>
-            <option value="LA">Los Angeles</option>
-            <option value="SF">San Francisco</option>
-          </select>
-          {user ? (
-            <DropdownMenu className="outline-none">
-              <DropdownMenuTrigger>
-                <div className="w-8 h-8 rounded-full bg-neutral-300 flex items-center justify-center">
-                  <span className="text-sm font-medium text-neutral-700">
-                    <FaUser />
-                  </span>
-                </div>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="m-2">
-                <DropdownMenuLabel>{user.name}</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>
-                  <Link to="/register-as-owner">Become Place Owner</Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem>Your Bookings</DropdownMenuItem>
-                <DropdownMenuItem>Account & Settings</DropdownMenuItem>
-                <DropdownMenuItem onClick={handleLogout}>Sign Out</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          ) : (
-            <button
-              className="font-medium bg-indigo-700 hover:bg-indigo-600 text-white px-4 py-2 rounded-lg shadow-lg"
-              onClick={handleLoginOpen}
-            >
-              Login
-            </button>
-          )}
-        </div>
+      {/* Location Selector and User Menu */}
+      <div className="flex items-center space-x-4">
+        {/* Location Selector */}
+        <button className="font-medium bg-indigo-700 hover:bg-indigo-600 text-white px-4 py-2 rounded-lg shadow-lg"
+          onClick={handleLocationSelectorOpen}>
+          Select Location
+        </button>
+
+        {/* Login / User Menu */}
+        {user ? (
+          <DropdownMenu className="outline-none">
+            <DropdownMenuTrigger>
+              <div className="w-8 h-8 rounded-full bg-neutral-300 flex items-center justify-center">
+                <span className="text-sm font-medium text-neutral-700">
+                  <FaUser />
+                </span>
+              </div>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="m-2">
+              <DropdownMenuLabel>{user.name}</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem><Link to="/register-as-owner">Become Place Owner</Link></DropdownMenuItem>
+              <DropdownMenuItem><Link to="/bookings">Your Bookings</Link></DropdownMenuItem>
+              <DropdownMenuItem>Account & Settings</DropdownMenuItem>
+              <DropdownMenuItem onClick={handleLogout}>Sign Out</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        ) : (
+          <button
+            className="font-medium bg-indigo-700 hover:bg-indigo-600 text-white px-4 py-2 rounded-lg shadow-lg"
+            onClick={handleLoginOpen}
+          >
+            Login
+          </button>
+        )}
       </div>
 
+      {/* Login Dialog */}
       <LoginDialog
         open={isLoginDialogOpen}
         onClose={handleLoginClose}
         onLoginSuccess={handleLoginSuccess}
       />
+      <LocationSelector open={isLocationSelectorOpen} onClose={handleLocationSelectorClose} />
     </div>
   );
 }
-
-
-// // Navbar.jsx
-// import React, { useState } from "react";
-// import { useNavigate } from "react-router-dom";
-
-// export default function Navbar() {
-//   const navigate = useNavigate();
-//   const [searchQuery, setSearchQuery] = useState("");
-
-//   return (
-//     <nav>
-//       <input
-//         type="text"
-//         placeholder="Search places..."
-//         value={searchQuery}
-//         onChange={(e) => setSearchQuery(e.target.value)}
-//         onKeyDown={handleSearchKeyDown}
-//       />
-//     </nav>
-//   );
-// }
