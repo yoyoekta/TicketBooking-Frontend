@@ -1,17 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import React from "react";
-import { useNavigate } from 'react-router-dom';
-
 
 const HomepageBanner = () => {
-
-  const navigate = useNavigate();
-
-  const handleClick = () => {
-  navigate('/');
-  };
-  
-  
   return (
     <div className="mt-2 flex flex-col md:flex-row justify-center items-center p-6 md:p-12 bg-gradient-to-r from-indigo-200 to-indigo-300 border-b border-indigo-200">
       <div className="flex-1 flex flex-col gap-4 md:gap-2 justify-center tracking-wider text-center md:text-left">
@@ -27,10 +17,7 @@ const HomepageBanner = () => {
             <span className="text-indigo-700 font-bold">simple</span>
             with
           </p>
-          <h4
-            className="font-extrabold text-3xl text-indigo-600 cursor-pointer"
-            onClick={handleClick}
-          >
+          <h4 className="font-extrabold text-3xl text-indigo-600">
             bookMyTicket
           </h4>
         </div>
