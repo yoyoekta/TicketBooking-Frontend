@@ -22,6 +22,8 @@ import BookScreen from "./Screens/BookScreen";
 import PaymentScreen from "./Screens/PaymentScreen";
 import OwnerRoute from "./CustomComponents/protectedRoutes/OwnerRoute";
 import LoginDialog from "./CustomComponents/auth/LoginDialog";
+import SearchResultsScreen from './CustomComponents/home/SearchResultsScreen';
+import PlaceDetailScreen from './CustomComponents/home/DetailedEventView';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -29,7 +31,7 @@ const router = createBrowserRouter(
       <Route path="/" element={<HomeScreen />}>
         <Route  path="/login" element={<LoginDialog />} />
       </Route>
-      <Route path="/place" element={<SinglePlaceScreen />} />
+      <Route path="/place/:placeId" element={<SinglePlaceScreen />} />
       <Route path="/book" element={<BookScreen />} />
       <Route path="/book/payment" element={<PaymentScreen />} />
       <Route path="/bookings" element={<UserBookingScreen />} />
@@ -40,6 +42,7 @@ const router = createBrowserRouter(
         <Route path="/owner" element={<PlaceOwnerDashboard />} />
       </Route>
       <Route path="/signup" element={<Signup />} />
+      <Route path="/search" element={<SearchResultsScreen />} />
       <Route path="*" element={<NotFoundScreen />} />
     </Route>
   )

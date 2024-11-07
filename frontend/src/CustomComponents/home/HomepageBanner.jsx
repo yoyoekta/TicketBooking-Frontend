@@ -1,6 +1,17 @@
+// eslint-disable-next-line no-unused-vars
 import React from "react";
+import { useNavigate } from 'react-router-dom';
+
 
 const HomepageBanner = () => {
+
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+  navigate('/');
+  };
+  
+  
   return (
     <div className="mt-2 flex flex-col md:flex-row justify-center items-center p-6 md:p-12 bg-gradient-to-r from-indigo-200 to-indigo-300 border-b border-indigo-200">
       <div className="flex-1 flex flex-col gap-4 md:gap-2 justify-center tracking-wider text-center md:text-left">
@@ -16,7 +27,10 @@ const HomepageBanner = () => {
             <span className="text-indigo-700 font-bold">simple</span>
             with
           </p>
-          <h4 className="font-extrabold text-3xl text-indigo-600">
+          <h4
+            className="font-extrabold text-3xl text-indigo-600 cursor-pointer"
+            onClick={handleClick}
+          >
             bookMyTicket
           </h4>
         </div>
@@ -24,15 +38,12 @@ const HomepageBanner = () => {
           <button className="font-medium bg-indigo-700 hover:bg-indigo-600 text-white px-4 py-2 rounded-lg shadow-lg transition duration-150 hover:-translate-y-1 hover:scale-110 ease-in-out">
             Book Now
           </button>
-          <button className="font-semibold bg-gray-100 hover:bg-gray-200 text-indigo-700 px-4 py-2 rounded-lg shadow-lg transition duration-300 hover:-translate-y-1 hover:scale-110 ease-in-out">
-            Login
-          </button>
         </div>
       </div>
 
       <div className="flex-1 flex justify-center items-center mt-8 md:mt-0">
         <img
-          src="path/to/caricature-image.jpg" // Replace with your caricature image path
+          src="https://img.freepik.com/free-vector/colorful-new-year-party-concept_23-2148373941.jpg?t=st=1730885134~exp=1730888734~hmac=60fccf9baed52d893eb16978bc19789050dbc2b722bf3106f50b70fbd7cbeeca&w=996" // Replace with your caricature image path
           alt="Event Booking Illustration"
           className="w-72 h-72 md:w-96 md:h-96 object-cover rounded-xl shadow-xl border border-indigo-200"
         />

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { FaUser } from "react-icons/fa6";
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,11 +15,11 @@ import LocationSelector from "./LocationSelector";
 import Logo from "../../images/Logo.png";
 
 export default function Navbar() {
+  const navigate = useNavigate();
   const [isLoginDialogOpen, setLoginDialogOpen] = useState(false);
   const [user, setUser] = useState(null);
   const [searchQuery, setSearchQuery] = useState(""); // Track the search query
-  // eslint-disable-next-line no-unused-vars
-  const [searchResults, setSearchResults] = useState([]); // Store search results
+  // const [searchResults, setSearchResults] = useState([]); // Store search results
 
   // Load user data from localStorage on component mount
   
@@ -32,11 +32,6 @@ export default function Navbar() {
 
   const handleLoginOpen = () => setLoginDialogOpen(true);
 
-  const handleLoginSuccess = (userData) => {
-    setUser(userData); // This will trigger re-render with new user data
-    setLoginDialogOpen(false); // Close the login dialog
-  };
-
   // Handle logout by clearing stored data and resetting state
   const handleLogout = () => {
     localStorage.removeItem("jwtToken");
@@ -44,41 +39,17 @@ export default function Navbar() {
     setUser(null);
   };
 
-  // Handle search input change
+  // eslint-disable-next-line no-unused-vars
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
   };
 
-  // Handle Enter key press for search
-  const handleSearchKeyDown = async (e) => {
+
+  const handleSearchKeyDown = (e) => {
     if (e.key === "Enter" && searchQuery.trim() !== "") {
-      // Trigger search when Enter is pressed
-      await searchPackages(searchQuery);
+      navigate(`/search?query=${searchQuery}`); // Redirect to the search page
     }
   };
-
-  // Fetch search results from API
-
-  const searchPackages = async (query) => {
-    try {
-      // Use axios.get() to fetch data from the backend
-      const response = await axios.get(`http://localhost:8080/api/events/search/${query}`);
-  
-      // Axios automatically parses the response into JSON, no need for response.json()
-      setSearchResults(response.data); // Store search results in state
-    } catch (error) {
-      console.error("Error fetching search results:", error);
-    }
-  };
-  // const searchPackages = async (query) => {
-  //   try {
-  //     const response = await axios.fetch(`http://localhost:8080/api/events/search?query=${query}`);
-  //     const data = await response.json();
-  //     setSearchResults(data); // Store search results in state
-  //   } catch (error) {
-  //     console.error("Error fetching search results:", error);
-  //   }
-  // };
 
   const [isLocationSelectorOpen, setLocationSelectorOpen] = useState(false);
   const handleLocationSelectorOpen = () => setLocationSelectorOpen(true);

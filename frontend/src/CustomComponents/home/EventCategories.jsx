@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Carousel,
   CarouselContent,
@@ -41,6 +40,7 @@ const eventCategories = [
   },
 ];
 
+// eslint-disable-next-line react/prop-types
 const EventCategoryCard = ({ title, events, bgColor, imageUrl }) => (
   <CarouselItem className="md:basis-1/3 lg:basis-1/4">
     <div
