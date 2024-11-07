@@ -1,7 +1,7 @@
 import { Button } from "@/Components/ui/button";
-import { signin } from "../../../services/authApi";
+import { signin } from "../../services/authApi";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   Dialog,
   DialogContent,
@@ -14,11 +14,16 @@ import CircularProgress from "@mui/material/CircularProgress"; // Adjust the imp
 // import React from "react";
 
 // eslint-disable-next-line react/prop-types
-const LoginDialog = ({ open, onClose, onLoginSuccess }) => {
+const LoginDialog = ({onLoginSuccess}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false); // Loading state
+  const navigate = useNavigate();
+
+  // const handleLoginSuccess = (userData) => {
+  //   onClose(false);
+  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,7 +35,7 @@ const LoginDialog = ({ open, onClose, onLoginSuccess }) => {
       if (status) {
         localStorage.setItem("jwtToken", jwt);
         localStorage.setItem("userData", JSON.stringify(user));
-        onLoginSuccess(user);
+        window.location.href="/";
       }
     } catch (err) {
       console.error("Login failed:", err);
@@ -44,9 +49,19 @@ const LoginDialog = ({ open, onClose, onLoginSuccess }) => {
     }
   };
 
+  function onClose(){
+    navigate("/");
+  }
+
+  const {pathname} = useLocation();
+  
+  if(!pathname.includes("/login")){
+    return null;
+  }
+
   return (
-    <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="max-w-md rounded-lg p-6 shadow-lg">
+    <Dialog  defaultOpen onOpenChange={val=>!val && onClose()}>
+      <DialogContent className="max-w-md rounded-lg p-6 shadow-lg overflow-auto max-h-[80vh]">
         <DialogHeader>
           <DialogTitle className="text-2xl font-semibold">
             Login to your account
@@ -69,6 +84,7 @@ const LoginDialog = ({ open, onClose, onLoginSuccess }) => {
               placeholder="Password"
               className="p-3 border-2 border-gray-300 placeholder-gray-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
               onChange={(e) => setPassword(e.target.value)}
+              minLength={8}
               required
             />
           </div>
@@ -91,11 +107,9 @@ const LoginDialog = ({ open, onClose, onLoginSuccess }) => {
         {/* Link to Signup page */}
         <p className="text-center mt-4">
           Not have an account?{" "}
-          <button onClick={onClose}>
           <Link to="/signup" className="text-blue-500 hover:underline">
             Signup
           </Link>
-          </button>
         </p>
       </DialogContent>
     </Dialog>

@@ -12,13 +12,17 @@ import {
 import LoginDialog from "../auth/LoginDialog";
 import { Link } from "react-router-dom";
 import LocationSelector from "./LocationSelector";
+import Logo from "../../images/Logo.png";
 
 export default function Navbar() {
   const navigate = useNavigate();
   const [isLoginDialogOpen, setLoginDialogOpen] = useState(false);
   const [user, setUser] = useState(null);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState(""); // Track the search query
+  // const [searchResults, setSearchResults] = useState([]); // Store search results
 
+  // Load user data from localStorage on component mount
+  
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("userData"));
     if (userData) {
@@ -27,17 +31,12 @@ export default function Navbar() {
   }, []);
 
   const handleLoginOpen = () => setLoginDialogOpen(true);
-  const handleLoginClose = () => setLoginDialogOpen(false);
 
+  // Handle logout by clearing stored data and resetting state
   const handleLogout = () => {
     localStorage.removeItem("jwtToken");
     localStorage.removeItem("userData");
     setUser(null);
-  };
-
-  const handleLoginSuccess = (userData) => {
-    setUser(userData);
-    setLoginDialogOpen(false);
   };
 
   // eslint-disable-next-line no-unused-vars
@@ -58,22 +57,23 @@ export default function Navbar() {
 
   return (
     <div className="flex items-center justify-between px-4 py-2 bg-neutral-50 shadow-sm">
-    {/* Logo */}
-    <div className="basis-2/3 flex justify-start items-center space-x-8">
-        <Link>
-          <div className="text-lg font-semibold">bookMyTicket</div>
-        </Link>
+      {/* Logo */}
+      <div className="basis-2/3 flex justify-start items-center space-x-8">
+        <img src={Logo} className="h-10 w-30" />
+
+        {/* Search Bar */}
         <div className="flex-grow mx-4 max-w-md">
-            <input
-              type="text"
-              placeholder="Search"
-              className="w-full p-2 rounded-md border border-neutral-300 focus:outline-none focus:ring-2 focus:ring-black"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              onKeyDown={handleSearchKeyDown}
-            />
+          <input
+            type="text"
+            placeholder="Search"
+            className="w-full p-2 rounded-md border border-neutral-300 focus:outline-none focus:ring-2 focus:ring-black"
+            value={searchQuery} // Bind search query to input value
+            onChange={handleSearchChange} // Handle input change
+            onKeyDown={handleSearchKeyDown} // Handle Enter key press
+          />
         </div>
-        </div>
+      </div>
+
       {/* Location Selector and User Menu */}
       <div className="flex items-center space-x-4">
         {/* Location Selector */}
@@ -95,26 +95,26 @@ export default function Navbar() {
             <DropdownMenuContent className="m-2">
               <DropdownMenuLabel>{user.name}</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem><Link to="/register-as-owner">Become Place Owner</Link></DropdownMenuItem>
-              <DropdownMenuItem><Link to="/bookings">Your Bookings</Link></DropdownMenuItem>
-              <DropdownMenuItem>Account & Settings</DropdownMenuItem>
-              <DropdownMenuItem onClick={handleLogout}>Sign Out</DropdownMenuItem>
+              <DropdownMenuItem className="cursor-pointer"><Link to="/register-as-owner">Become Place Owner</Link></DropdownMenuItem>
+              <DropdownMenuItem className="cursor-pointer"><Link to="/bookings">Your Bookings</Link></DropdownMenuItem>
+              {/* <DropdownMenuItem>Account & Settings</DropdownMenuItem> */}
+              <DropdownMenuItem className="cursor-pointer" onClick={handleLogout}>Sign Out</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         ) : (
+          <Link to="/login">
           <button
             className="font-medium bg-indigo-700 hover:bg-indigo-600 text-white px-4 py-2 rounded-lg shadow-lg"
             onClick={handleLoginOpen}
           >
             Login
           </button>
+          </Link>
         )}
-          </div>
-      <LoginDialog
-        open={isLoginDialogOpen}
-        onClose={handleLoginClose}
-        onLoginSuccess={handleLoginSuccess}
-      />
+      </div>
+
+      {/* Login Dialog */}
+      <LoginDialog onLoginSuccess={handleLoginSuccess}/>
       <LocationSelector open={isLocationSelectorOpen} onClose={handleLocationSelectorClose} />
     </div>
   );
