@@ -66,7 +66,8 @@ const OngoingEvent = () => {
   return (
     <div className="mt-8 p-4">
       <div className="flex flex-col gap-2">
-        <h3 className="font-bold text-xl">Upcoming Events</h3>
+        <h3 className="font-bold text-xl">Newly Added Places - <span className="text-red-600">Pre-booking Available</span></h3>
+        {events.length > 0 ? (
         <Carousel opts={{ align: "start" }} className="w-full max-w-7xl">
           <CarouselPrevious onClick={handlePreviousPage} disabled={page === 0}>
             <span className="text-white">{"<"}</span>
@@ -85,22 +86,21 @@ const OngoingEvent = () => {
                           {event.placeName}
                         </span>
                         <span className="text-md mt-2">
-                          Remaing Ticket: {event.maxTicket-event.soldTicket}
+                          Remaining Ticket: {event.maxTicket-event.soldTicket}
                         </span>
                         <p className="text-sm mt-1">{event.description}</p>
                       </CardContent>
                     </Card>
                   </div>
                 </CarouselItem>
-              ))
-            ) : (
-              <div>No events available.</div>
-            )}
+               ))
+              ) : " "}
           </CarouselContent>
           <CarouselNext onClick={handleNextPage} disabled={page === totalPages - 1}>
             <span className="text-white">{">"}</span>
           </CarouselNext>
         </Carousel>
+      ) : <div className="p-2"> No places available </div> }
       </div>
     </div>
   );

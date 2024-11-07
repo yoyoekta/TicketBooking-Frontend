@@ -105,7 +105,7 @@ export default function Navbar() {
           <Link to="/login">
           <button
             className="font-medium bg-indigo-700 hover:bg-indigo-600 text-white px-4 py-2 rounded-lg shadow-lg"
-            onClick={handleLoginOpen}
+            // onClick={handleLoginOpen}
           >
             Login
           </button>
@@ -114,7 +114,7 @@ export default function Navbar() {
       </div>
 
       {/* Login Dialog */}
-      <LoginDialog onLoginSuccess={handleLoginSuccess}/>
+      {/* <LoginDialog onLoginSuccess={handleLoginSuccess}/> */}
       <LocationSelector open={isLocationSelectorOpen} onClose={handleLocationSelectorClose} />
     </div>
   );
