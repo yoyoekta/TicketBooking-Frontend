@@ -66,7 +66,7 @@ const OngoingEvent = () => {
   return (
     <div className="mt-8 p-4">
       <div className="flex flex-col gap-2">
-        <h3 className="font-bold text-xl">Ongoing Events</h3>
+        <h3 className="font-bold text-xl">Upcoming Events</h3>
         <Carousel opts={{ align: "start" }} className="w-full max-w-7xl">
           <CarouselPrevious onClick={handlePreviousPage} disabled={page === 0}>
             <span className="text-white">{"<"}</span>

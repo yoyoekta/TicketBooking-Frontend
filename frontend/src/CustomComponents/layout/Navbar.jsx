@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { FaUser } from "react-icons/fa6";
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,13 +14,12 @@ import { Link } from "react-router-dom";
 import LocationSelector from "./LocationSelector";
 
 export default function Navbar() {
+  const navigate = useNavigate();
   const [isLoginDialogOpen, setLoginDialogOpen] = useState(false);
   const [user, setUser] = useState(null);
   const [searchQuery, setSearchQuery] = useState(""); // Track the search query
-  // eslint-disable-next-line no-unused-vars
-  const [searchResults, setSearchResults] = useState([]); // Store search results
+  // const [searchResults, setSearchResults] = useState([]); // Store search results
 
-  // Load user data from localStorage on component mount
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("userData"));
     if (userData) {
@@ -31,78 +30,48 @@ export default function Navbar() {
   const handleLoginOpen = () => setLoginDialogOpen(true);
   const handleLoginClose = () => setLoginDialogOpen(false);
 
-  // Handle logout by clearing stored data and resetting state
   const handleLogout = () => {
     localStorage.removeItem("jwtToken");
     localStorage.removeItem("userData");
     setUser(null);
   };
 
-  // Update user state upon successful login
   const handleLoginSuccess = (userData) => {
     setUser(userData);
     setLoginDialogOpen(false);
   };
 
-  // Handle search input change
+  // eslint-disable-next-line no-unused-vars
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
   };
 
-  // Handle Enter key press for search
-  const handleSearchKeyDown = async (e) => {
+
+  const handleSearchKeyDown = (e) => {
     if (e.key === "Enter" && searchQuery.trim() !== "") {
-      // Trigger search when Enter is pressed
-      await searchPackages(searchQuery);
+      navigate(`/search?query=${searchQuery}`); // Redirect to the search page
     }
   };
-
-  // Fetch search results from API
-
-  const searchPackages = async (query) => {
-    try {
-      // Use axios.get() to fetch data from the backend
-      const response = await axios.get(`http://localhost:8080/api/events/search/${query}`);
-  
-      // Axios automatically parses the response into JSON, no need for response.json()
-      setSearchResults(response.data); // Store search results in state
-    } catch (error) {
-      console.error("Error fetching search results:", error);
-    }
-  };
-  // const searchPackages = async (query) => {
-  //   try {
-  //     const response = await axios.fetch(`http://localhost:8080/api/events/search?query=${query}`);
-  //     const data = await response.json();
-  //     setSearchResults(data); // Store search results in state
-  //   } catch (error) {
-  //     console.error("Error fetching search results:", error);
-  //   }
-  // };
 
   const [isLocationSelectorOpen, setLocationSelectorOpen] = useState(false);
   const handleLocationSelectorOpen = () => setLocationSelectorOpen(true);
   const handleLocationSelectorClose = () => setLocationSelectorOpen(false);
 
   return (
-    <div className="flex items-center justify-between px-4 py-2 bg-neutral-50 shadow-sm">
-      {/* Logo */}
-      <div className="basis-2/3 flex justify-start items-center space-x-8">
-        <div className="text-lg font-semibold">bookMyTicket</div>
-
-        {/* Search Bar */}
-        <div className="flex-grow mx-4 max-w-md">
-          <input
-            type="text"
-            placeholder="Search"
-            className="w-full p-2 rounded-md border border-neutral-300 focus:outline-none focus:ring-2 focus:ring-black"
-            value={searchQuery} // Bind search query to input value
-            onChange={handleSearchChange} // Handle input change
-            onKeyDown={handleSearchKeyDown} // Handle Enter key press
-          />
-        </div>
-      </div>
-
+    <div className="flex flex-col items-center px-4 py-2 bg-neutral-50 shadow-sm">
+      <div className="w-full flex justify-between items-center">
+        <div className="basis-2/3 flex justify-start items-center space-x-8">
+          <div className="text-lg font-semibold">bookMyTicket</div>
+          <div className="flex-grow mx-4 max-w-md">
+            <input
+              type="text"
+              placeholder="Search"
+              className="w-full p-2 rounded-md border border-neutral-300 focus:outline-none focus:ring-2 focus:ring-black"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              onKeyDown={handleSearchKeyDown}
+            />
+          </div>
       {/* Location Selector and User Menu */}
       <div className="flex items-center space-x-4">
         {/* Location Selector */}
@@ -144,7 +113,7 @@ export default function Navbar() {
       <LoginDialog
         open={isLoginDialogOpen}
         onClose={handleLoginClose}
-        onLoginSuccess={handleLoginSuccess} // Pass login success handler
+        onLoginSuccess={handleLoginSuccess}
       />
       <LocationSelector open={isLocationSelectorOpen} onClose={handleLocationSelectorClose} />
     </div>

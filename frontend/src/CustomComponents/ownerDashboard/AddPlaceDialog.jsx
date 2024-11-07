@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -11,6 +12,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { addPlace } from "@/services/addPlaceApi";
 
+// eslint-disable-next-line react/prop-types
 const AddPlaceDialog = ({ open, onClose }) => {
   const [placeName, setPlaceName] = useState();
   const [location, setLocation] = useState();
