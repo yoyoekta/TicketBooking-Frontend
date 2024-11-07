@@ -36,3 +36,18 @@ export const signin = async ({ email, password }) => {
         throw error;
     }
 };
+
+export const changeToPO = async (data) => {
+    const body = {
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
+        address: data.addressFinal,
+        role: "PO",
+        status: "ACTIVE",
+        profilePicture: "no_profile_url",
+    };
+    const response = await api.post(`/auth/change-to-po/${data.email}`, body);
+    return response;
+
+}

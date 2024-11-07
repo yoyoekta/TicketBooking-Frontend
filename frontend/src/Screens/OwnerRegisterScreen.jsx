@@ -1,15 +1,43 @@
 // eslint-disable-next-line no-unused-vars
-import React from "react";
+import { changeToPO } from "@/services/authApi";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const OwnerRegisterScreen = () => {
+  const [name, setName] = useState();
+  const [email, setEmail] = useState();
+  const [phoneNumber, setPhoneNumber] = useState();
+  const [address, setAddress] = useState();
+  const [city, setCity] = useState();
+  const [state, setState] = useState();
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    // setLoading(true);
+    const addressFinal = address+ ', ' + city + ', ' + state;
+    const data = { name, email, phoneNumber, addressFinal };
+    console.log(data);
+    try {
+      const response = await changeToPO(data);
+      console.log(response);
+
+      if (response.status === 200 && response.data) {
+        navigate("/owner");
+        // window.location.reload();
+      }
+    } catch (err) {
+      console.error(err);
+    } 
+  };
   return (
-    <div className="-mt-6 max-w-5xl mx-auto flex justify-center items-center min-h-screen bg-gray-100">
+    <div className="my-8 max-w-5xl mx-auto flex justify-center items-center bg-gray-100">
       <div className="bg-white p-8 rounded-lg shadow-lg w-full border border-gray-300">
         <h1 className="text-xl font-semibold text-center mb-6">
           Register yourself as Place Owner
         </h1>
 
-        <form className="space-y-4">
+        <form className="space-y-4" onSubmit={handleSubmit}>
           {/* Name Field */}
           <div>
             <label htmlFor="name" className="text-sm font-medium">
@@ -20,6 +48,8 @@ const OwnerRegisterScreen = () => {
               id="name"
               className="mt-1 block w-full border border-gray-300 rounded px-3 py-2"
               placeholder="Enter your name"
+              onChange={(e) => setName(e.target.value)}
+              required
             />
           </div>
 
@@ -34,6 +64,8 @@ const OwnerRegisterScreen = () => {
                 id="email"
                 className="mt-1 block w-full border border-gray-300 rounded px-3 py-2"
                 placeholder="Email"
+                onChange={(e) => setEmail(e.target.value)}
+                required
               />
             </div>
 
@@ -47,6 +79,9 @@ const OwnerRegisterScreen = () => {
                 id="phone"
                 className="mt-1 block w-full border border-gray-300 rounded px-3 py-2"
                 placeholder="Phone number"
+                required
+                maxLength={10}
+                onChange={(e) => setPhoneNumber(e.target.value)}
               />
             </div>
           </div>
@@ -61,6 +96,8 @@ const OwnerRegisterScreen = () => {
               rows="3"
               className="mt-1 block w-full border border-gray-300 rounded px-3 py-2"
               placeholder="Enter your address"
+              required
+              onChange={(e) => setAddress(e.target.value)}
             />
           </div>
 
@@ -75,6 +112,8 @@ const OwnerRegisterScreen = () => {
                 id="city"
                 className="mt-1 block w-full border border-gray-300 rounded px-3 py-2"
                 placeholder="City"
+                required
+                onChange={(e) => setCity(e.target.value)}
               />
             </div>
 
@@ -87,6 +126,8 @@ const OwnerRegisterScreen = () => {
                 id="state"
                 className="mt-1 block w-full border border-gray-300 rounded px-3 py-2"
                 placeholder="State"
+                required
+                onChange={(e) => setState(e.target.value)}
               />
             </div>
           </div>
