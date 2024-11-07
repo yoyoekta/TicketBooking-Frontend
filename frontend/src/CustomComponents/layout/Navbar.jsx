@@ -12,6 +12,7 @@ import {
 import LoginDialog from "../auth/LoginDialog";
 import { Link } from "react-router-dom";
 import LocationSelector from "./LocationSelector";
+import Logo from "../../images/Logo.png";
 
 export default function Navbar() {
   const [isLoginDialogOpen, setLoginDialogOpen] = useState(false);
@@ -21,6 +22,7 @@ export default function Navbar() {
   const [searchResults, setSearchResults] = useState([]); // Store search results
 
   // Load user data from localStorage on component mount
+  
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("userData"));
     if (userData) {
@@ -29,19 +31,17 @@ export default function Navbar() {
   }, []);
 
   const handleLoginOpen = () => setLoginDialogOpen(true);
-  const handleLoginClose = () => setLoginDialogOpen(false);
+
+  const handleLoginSuccess = (userData) => {
+    setUser(userData); // This will trigger re-render with new user data
+    setLoginDialogOpen(false); // Close the login dialog
+  };
 
   // Handle logout by clearing stored data and resetting state
   const handleLogout = () => {
     localStorage.removeItem("jwtToken");
     localStorage.removeItem("userData");
     setUser(null);
-  };
-
-  // Update user state upon successful login
-  const handleLoginSuccess = (userData) => {
-    setUser(userData);
-    setLoginDialogOpen(false);
   };
 
   // Handle search input change
@@ -88,7 +88,7 @@ export default function Navbar() {
     <div className="flex items-center justify-between px-4 py-2 bg-neutral-50 shadow-sm">
       {/* Logo */}
       <div className="basis-2/3 flex justify-start items-center space-x-8">
-        <div className="text-lg font-semibold">bookMyTicket</div>
+        <img src={Logo} className="h-10 w-30" />
 
         {/* Search Bar */}
         <div className="flex-grow mx-4 max-w-md">
@@ -124,28 +124,26 @@ export default function Navbar() {
             <DropdownMenuContent className="m-2">
               <DropdownMenuLabel>{user.name}</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem><Link to="/register-as-owner">Become Place Owner</Link></DropdownMenuItem>
-              <DropdownMenuItem><Link to="/bookings">Your Bookings</Link></DropdownMenuItem>
-              <DropdownMenuItem>Account & Settings</DropdownMenuItem>
-              <DropdownMenuItem onClick={handleLogout}>Sign Out</DropdownMenuItem>
+              <DropdownMenuItem className="cursor-pointer"><Link to="/register-as-owner">Become Place Owner</Link></DropdownMenuItem>
+              <DropdownMenuItem className="cursor-pointer"><Link to="/bookings">Your Bookings</Link></DropdownMenuItem>
+              {/* <DropdownMenuItem>Account & Settings</DropdownMenuItem> */}
+              <DropdownMenuItem className="cursor-pointer" onClick={handleLogout}>Sign Out</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         ) : (
+          <Link to="/login">
           <button
             className="font-medium bg-indigo-700 hover:bg-indigo-600 text-white px-4 py-2 rounded-lg shadow-lg"
             onClick={handleLoginOpen}
           >
             Login
           </button>
+          </Link>
         )}
       </div>
 
       {/* Login Dialog */}
-      <LoginDialog
-        open={isLoginDialogOpen}
-        onClose={handleLoginClose}
-        onLoginSuccess={handleLoginSuccess} // Pass login success handler
-      />
+      <LoginDialog onLoginSuccess={handleLoginSuccess}/>
       <LocationSelector open={isLocationSelectorOpen} onClose={handleLocationSelectorClose} />
     </div>
   );
